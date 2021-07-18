@@ -6,6 +6,8 @@ Modern day applications are often implemented on multiprocessor systems i.e. tas
 When tasks of the application are mapped onto different processors for execution, inter-processor communications happens between these during execution, thereby increasing the scheduling length.<br /> The reasons includes two or more processors, requires same Resource (Contention Problem).<br /> To restrict the access, synchronisation occurs in the system for making the operations atomic and mutual exclusion. To tackle this overhead, task duplication strategy has been employed in the schedule.
 ## Existing Work
 Scheduling is generally classified as three categories, list-based, cluster-based, duplication-based scheduling.<br /> List scheduling technique will assign various priorities, e.g., the s-level, b-level and t-level, to tasks during the scheduling.<br /> The tasks will be then ordered and scheduled as per the previously assigned priorities. Cluster based scheduling technique will bind tasks which most probably have large intercommunication as a cluster.<br /> This cluster is then scheduled on to the same processor. Therefore the tasks having the heavy inter – processor communication are now mapped on to the same processor and the schedule performance will be increased. Duplication-based scheduling, same tasks will be mapped to multiple processors for execution to reduce the schedule length.<br /> This approach used ILP for the non-duplication-based scheduling. This approach only focuses on reducing the communication cost, but the ordering and the data dependency and the timing constraints were not considered in this approach.
+![image](https://user-images.githubusercontent.com/75213715/126064989-689320cf-677e-4aef-bf68-5d0e2c3a3456.png)
+
 ## Full-duplication strategy:
 It duplicates immediate and indirect ancestors in a bottom-up fashion recursively.<br /> The various algorithms employing this strategy are listed below.<br />
 i. The Critical Path Fast Duplication (CPFD) algorithm, tries to duplicate the very important parent into the available time slot of the processor until either the time slot is used up or the task start time is not improved any more.<br />
@@ -24,6 +26,8 @@ b. How many times a task should be duplicated and where it should be duplicated?
 c. How should tasks on each processor be ordered and timed?<br />
 d. How to determine the data precedence’s among duplications of a task and its successors?<br />
 e. Finding the optimal duplication-based solution with the minimal schedule make span remains an issue.<br />
+![image](https://user-images.githubusercontent.com/75213715/126064979-6ca4dda6-ad8b-4c2d-b0fa-b24f04c3c2ce.png)
+
 ## Mixed Integer Linear Programming Approach:
 The MILP has been widely studied for the scheduling problem.<br /> Proposed an application-specific knowledge aware MILP for scheduling DAGs.In the formulation, the bi-linear equation is simplified to mitigate the size of the formulation.<br /> This paper proposes a novel Mixed Integer Linear Programming (MILP) formulation, together with a set of key theorems which enable and simplify the MILP formulation and solve the problem with optimality.<br /> This approach is guaranteed to be optimal in terms of schedule length for the duplication--based scheduling problem. <br />The task duplication is modeled appropriately using the task duplication variable in the formulation, thus resulting in optimal task duplication strategy.<br /> The reformulated data dependence is taken into account without a priori information about task duplication and mapping. A set of optimality theorems are summarized, which help to enable and simplify the modelling of the problem.<br />
 A DAG is represented as G = (V, E), V is tasks; E is a finite set of directed edges denoting data precedence among tasks.<br /> Each task v ∈ V has computation cost c(v). Each edge e ∈ E is defined as a tuple (a, b), where a, b are source and destination tasks respectively. eab denotes the edge (a, b).<br /> Each edge e ∈ E has an integer communication cost w(e), which is the time taken for data transfer. <br />src(e), dst(e) represents source task and destination task , oe(v) are output edges and
@@ -84,3 +88,12 @@ fvj + W(e2) − Sbi ≤ M ∗ (1 − dvjbi )<br />
 ## Objective Function:<br />
 The main purpose in the problem of task scheduling is to reduce the schedule length.<br /> The schedule length in a schedule can be taken as the maximum of all finish times of tasks that exists in the schedule.<br /> Therefore the objective function can be mathematically formulated as follows.<br />
 fmk ≤ SL, ∀ m ∈ {a, b}, k ∈ P<br />
+### Execution Results<br/ >
+The sample Task Graph for execution is chosen having 9 tasks which are interdependent.
+![image](https://user-images.githubusercontent.com/75213715/126064961-5f0e71f0-2212-48bf-af50-d2ed222739e8.png)
+
+![image](https://user-images.githubusercontent.com/75213715/126064936-983f22aa-50df-4f95-924d-8523cf6a7405.png)
+
+![image](https://user-images.githubusercontent.com/75213715/126064926-6171d656-f46b-4806-8829-14f82e14da02.png)
+
+
