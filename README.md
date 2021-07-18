@@ -88,9 +88,10 @@ fvj + W(e2) − Sbi ≤ M ∗ (1 − dvjbi )<br />
 ## Objective Function:<br />
 The main purpose in the problem of task scheduling is to reduce the schedule length.<br /> The schedule length in a schedule can be taken as the maximum of all finish times of tasks that exists in the schedule.<br /> Therefore the objective function can be mathematically formulated as follows.<br />
 fmk ≤ SL, ∀ m ∈ {a, b}, k ∈ P<br />
-### Execution Results<br/ >
-The sample Task Graph for execution is chosen having 9 tasks which are interdependent.
+## Execution Results: <br />
 ![image](https://user-images.githubusercontent.com/75213715/126064961-5f0e71f0-2212-48bf-af50-d2ed222739e8.png)
+
+The sample Task Graph for execution is chosen having 9 tasks which are interdependent.
 
 ![image](https://user-images.githubusercontent.com/75213715/126064936-983f22aa-50df-4f95-924d-8523cf6a7405.png)
 
