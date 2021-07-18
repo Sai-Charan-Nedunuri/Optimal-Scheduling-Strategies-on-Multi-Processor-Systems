@@ -1,0 +1,60 @@
+Rp_model file:
+/*********************************************
+* OPL 20.1.0.0 Model
+* Author: admin
+* Creation Date: 22-May-2021 at 9:35:36 am
+*********************************************/
+// Optimal Duplication - Based Scheduling Problem in Multi Processor Environment
+/*******************************************/
+//Indices
+int NoOfVertices = ...;
+{int} Vertices = {1,2,3,4,5,6,7,8,9};
+{string} EntryVertices = ...;
+{string} ExitVertices = ...;
+{string} Processors =...;
+int M = ...;
+{string} StartVertices =...;
+{string} Dependents =...;
+//{string} Tasks_On_SameProcessor[Processors][Vertices] = ...;
+// {string} Fin[Tasks_On_SameProcessor] = ...;
+// {string} Starts[Tasks_On_SameProcessor] = ...;
+int Z = ...;
+//Parameters and Data
+int Edges[Vertices][Vertices] = ...;
+float Computation[Vertices] = ...;
+float Communication[Vertices][Vertices] = ...;
+//Decision Variables
+dvar boolean X[ Vertices][Processors];
+dvar boolean Y[ ExitVertices][Processors];
+dvar float+ Finish[StartVertices];
+dvar float+ Start[Dependents];
+dvar float+ StartTime[Vertices][Processors];
+dvar float+ XX[StartVertices][Dependents];
+dvar float+ dep[Vertices][Processors];
+//Objective Function
+dexpr float ScheduleLength = sum(s in Vertices, c in Vertices)(Computation[s] + Communication[s][c])
++ sum(en in Vertices, p in Processors)((X[en][p] * dep[en][p]) + (StartTime[en][p] * dep[en][p]) );
+//Model
+minimize ScheduleLength;
+//constraints
+subject to{
+forall( en in Vertices, p in Processors)
+X[en][p] == 1; //no of times entry process executes = 1
+forall(x in ExitVertices)
+sum(p in Processors)
+Y[x][p] >= 1; //non entry process can execute>1 times.
+forall(m in Vertices, k in Processors)
+StartTime[m][k] <= M*X[m][k]; //start time of redundant task limited to 0
+forall(st in StartVertices, dp in Dependents)
+Finish[st] - Start[dp] <= M*(1 - XX[st][dp]); //finish time of parent <= start time of child
+forall(st in StartVertices, e in Dependents)
+Start[e] <= XX[st][e]; //dependency exists only if parent task is scheduled
+forall(v in Vertices, p in Processors)
+dep[v][p] >= X[v][p]; //Redundant duplications will be removed as unnecessary dependencies removed
+forall(st in StartVertices, dp in Dependents)
+XX[st][dp] == Start[dp]; //dependent depends only on one parent
+forall(st in StartVertices, dp in Dependents)
+Start[dp] <= M*(1 - XX[st][dp]);// child starts only if dependency exists, avoiding redundant executions
+forall(st in StartVertices, dp in Dependents)
+Finish[st] - Start[dp] <= M*(1 - XX[st][dp]);//child should start as soon as parent finishes execution
+}

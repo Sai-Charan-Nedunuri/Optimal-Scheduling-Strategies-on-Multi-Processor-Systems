@@ -1,0 +1,26 @@
+No_Constraints_Model file:
+/*********************************************
+* OPL 20.1.0.0 Model
+* Author: admin
+* Creation Date: 15-Jun-2021 at 5:14:15 pm
+*********************************************/
+//Indices
+int NoOfVertices = ...;
+{int} Vertices = {1,2,3,4,5,6,7,8,9};
+{string} EntryVertices = ...;
+{string} ExitVertices = ...;
+{string} Processors =...;
+//Parameters and Data
+int Edges[Vertices][Vertices] = ...;
+float Computation[Vertices] = ...;
+float Communication[Vertices][Vertices] = ...;
+//Decision Variables
+dvar boolean X[ Vertices][Processors];
+//Objective Function
+dexpr float ScheduleLength = sum(s in Vertices, c in Vertices)(Computation[s] + Communication[s][c]);
+//Model
+minimize ScheduleLength;
+subject to{
+forall( en in Vertices, p in Processors)
+X[en][p] == 1;
+}

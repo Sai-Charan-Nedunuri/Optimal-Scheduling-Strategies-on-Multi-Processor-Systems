@@ -1,0 +1,37 @@
+Rp_data file:
+/*********************************************
+* OPL 20.1.0.0 Data
+* Author: admin
+* Creation Date: 22-May-2021 at 9:35:36 am
+*********************************************/
+//Index
+NoOfVertices = 9; //No of vertices taken
+EntryVertices = {p};
+ExitVertices = {x};
+Processors = {a,b,c};
+Computation = [ 0.1 0.2 0.1 0.1 0.2 0.1 0.1 0.2 0.1 ]; // computation cost of tasks
+Edges = [[ 0 1 1 1 0 0 0 0 0] // Interconnection between tasks.
+[ 0 0 0 0 1 0 0 0 0]
+[ 0 0 0 0 0 1 0 0 0]
+[ 0 0 0 0 0 0 1 0 0]
+[ 0 0 0 0 1 1 0 0 0]
+[ 0 0 0 0 0 0 0 1 0]
+[ 0 0 0 0 0 0 0 0 1]
+[ 0 0 0 0 0 0 0 0 1]
+[ 0 0 0 0 0 0 0 0 0]];
+Communication = [[ 0 0.1 0.1 0.1 0 0 0 0 0] // Communication cost between tasks
+[ 0 0 0 0 0.2 0 0 0 0]
+[ 0 0 0 0 0 0.2 0 0 0]
+[ 0 0 0 0 0 0 0.2 0 0]
+[ 0 0 0 0 0.1 0.1 0 0 0]
+[ 0 0 0 0 0 0 0 0.2 0]
+[ 0 0 0 0 0 0 0 0 0.2]
+[ 0 0 0 0 0 0 0 0 0.1]
+[ 0 0 0 0 0 0 0 0 0]];
+StartVertices = {p};
+Dependents = {q,r,s};
+//Tasks_On_SameProcessor = [[ p 0 r 0 t 0 v 0 0]
+// [ 0 q 0 0 0 u 0 0 x]
+// [ 0 0 0 s 0 0 0 w 0]]; // Tasks mapped to same processor
+Z = 1;
+M = 10000;
